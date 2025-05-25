@@ -3,17 +3,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import locators
 
-def test_successful_login(driver):
-    driver.get("https://qa-desk.stand.praktikum-services.ru/")
+def test_successful_login(driver, base_url):
+    driver.get(base_url)
     wait = WebDriverWait(driver, 10)
 
-    # Переход к форме входа
     login_register_button = wait.until(EC.element_to_be_clickable(locators.LOGIN_REGISTER_BUTTON))
     login_register_button.click()
 
-    # Ввод данных для входа
-    email = "testirovanye@test.ru"  # Замените на существующий email
-    password = "12345"        # Замените на соответствующий пароль
+    email = "testirovanye@test.ru"
+    password = "12345"
 
     email_field = wait.until(EC.visibility_of_element_located(locators.EMAIL_FIELD))
     email_field.send_keys(email)
@@ -24,7 +22,6 @@ def test_successful_login(driver):
     login_button = wait.until(EC.element_to_be_clickable(locators.LOGIN_BUTTON))
     login_button.click()
 
-    # Проверка успешного входа
     user_avatar = wait.until(EC.presence_of_element_located(locators.USER_AVATAR))
     user_name = wait.until(EC.visibility_of_element_located(locators.USER_NAME))
     assert "User" in user_name.text

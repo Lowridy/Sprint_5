@@ -9,3 +9,7 @@ def driver():
     driver = webdriver.Chrome(options=options)
     yield driver
     driver.quit()
+
+@pytest.fixture(scope="session")
+def base_url():
+    return "https://qa-desk.stand.praktikum-services.ru/"
